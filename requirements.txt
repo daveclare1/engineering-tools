@@ -19,6 +19,7 @@ numpy==1.23.5
 packaging==21.3
 pandas==1.5.2
 Pillow==9.3.0
+plotly==5.11.0
 protobuf==3.20.3
 pyarrow==10.0.1
 pydeck==0.8.0
@@ -31,10 +32,12 @@ pytz==2022.6
 pytz-deprecation-shim==0.1.0.post0
 requests==2.28.1
 rich==12.6.0
+scipy==1.9.3
 semver==2.13.0
 six==1.16.0
 smmap==5.0.0
 streamlit==1.15.2
+tenacity==8.1.0
 toml==0.10.2
 toolz==0.12.0
 tornado==6.2
