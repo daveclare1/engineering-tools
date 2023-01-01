@@ -28,7 +28,7 @@ with st.expander("Modelling approach"):
     $K_V$ are both referred to as $K$ because they take the same value.
     The electrical side:
 
-    $$V = Ri + K\omega + L\\frac{di}{dt}$$
+    $$V = Ri + K\omega + L\dot{i}$$
 
     The mechanical side:
 
