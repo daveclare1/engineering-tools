@@ -2,11 +2,11 @@ import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
 
-from engpy.binomial_reliability import sample_size_zero_fails, confidence_level
+from engpy.binomial_reliability import sample_size, sample_size_zero_fails, confidence_level
 
 st.title("Binomial Reliability")
 
-st.write(r"""
+st.markdown(r"""
     The cumulative binomial equation can be used in a pass/fail experiment 
     to determine one of the following:
     * The number of samples needed to prove a claimed success rate with a known confidence
@@ -26,6 +26,42 @@ st.write(r"""
     $n$ = sample size and $f$ = number of failures observed. The levels are
     always values between 0 and 1.
     """)
+
+with st.expander("Compute sample size"):
+    st.write(
+        """Specify your requirements to find the sample size required for proof.
+        Note how the sample size jumps up if you see failures - be really sure
+        that a failure is a one-off before you bother continuing testing!
+        """
+    )
+    cols = st.columns(3)
+    input_rel = cols[0].number_input(
+        "Reliability",
+        min_value=1,
+        max_value=99,
+        value=90,
+        step=5,
+        format='%d',
+    )
+    input_conf = cols[1].number_input(
+        "Confidence",
+        min_value=1,
+        max_value=99,
+        value=95,
+        step=5,
+        format='%d',
+    )
+    input_failures = cols[2].number_input(
+        "Failures",
+        min_value=0,
+        max_value=10,
+        value=0,
+        step=1,
+        format='%d',
+    )
+
+    n_samples = sample_size(input_rel/100, input_conf/100, input_failures)
+    st.markdown(f"Test **{n_samples}** samples with **{input_failures}** failures to be **{input_conf}%** confident that your design is **{input_rel}%** reliable")
 
 with st.expander("Exploration"):
     # Define the different slider possibilities for the plot control

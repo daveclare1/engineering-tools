@@ -3,6 +3,7 @@ Functions for binomial reliability
 """
 
 from scipy.special import comb as combination
+from scipy.optimize import fsolve
 import numpy as np
 
 
@@ -18,6 +19,16 @@ def sample_size_zero_fails(reliability:list[float], confidence:list[float]) -> i
     sample_size = np.log(1-confidence) / np.log(reliability)
     return np.ceil(sample_size)
 
+def sample_size(reliability:float, confidence:float, failures:int) -> int:
+    # make a function that equals 0 when the sample size is right for us
+    def f(ss):
+        cl = confidence_level(ss, failures, reliability)
+        return confidence - cl
+    # then find the root
+    ret = fsolve(f, x0=0)[0]
+    return int(np.ceil(ret))
+
 if __name__ == '__main__':
     rel = np.linspace(0.05, 0.95, 18, endpoint=True)
     print(confidence_level(10, 0, rel))
+    print(sample_size(0.8, 0.9, 1))
